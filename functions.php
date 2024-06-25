@@ -152,4 +152,37 @@
             }
         }
         add_action('pre_get_posts', 'my_preget_posts');
+
+        function kei_time($days){
+            $today = date_i18n('U');
+            $entry_day = get_the_time('U');
+            $keika = date('U',($today - $entry_day)) / 86400;
+            if ( $days > $keika ):
+                echo '<div class="entry-icon-new">new</div>';
+            endif;
+        }
+
+        function kei_num($limit){
+            global $wp_query;
+            $num = $wp_query->current_post;
+            echo $num;
+            if ( $limit > $num ):
+                echo '<div class="entry-icon-new">new</div>';
+            endif;
+        }
+        
+        function kei_awase($day,$limit){
+            global $wp_query;
+            $days = 3;
+            $today = date_i18n('U');
+            $entry_day = get_the_time('U');
+            $keika = date('U',($today - $entry_day)) / 86400;
+            if ( $days > $keika ):
+                $limit = 3;
+                $num = $wp_query->current_post;
+                if ( $limit > $num ):
+                    echo '<div class="entry-icon-new">new</div>';
+                endif;  
+            endif;  
+        }
     ?>
